@@ -1,6 +1,11 @@
 # QUIC setup
 
 
+## Vagrant Setup
+
+```bash
+vagrant up
+```
 
 After setup
 
@@ -11,3 +16,6 @@ After setup
 ./client --max-udp-payload-size=1200 localhost 10101 "https://localhost:10101/test.txt"
 ```
 
+## CloudLab setup
+
+[profile](profile.py)
