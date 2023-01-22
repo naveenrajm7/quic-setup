@@ -20,8 +20,8 @@ node2.routable_control_ip = True
 link1 = request.Link(members = [node1,node2])
 
 # Install and execute a script that is contained in the repository.
-node1.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-quic.sh"))
-node2.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-quic.sh"))
+node1.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
+node2.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
