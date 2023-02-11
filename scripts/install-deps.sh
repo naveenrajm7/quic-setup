@@ -20,4 +20,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libev-dev
 # Get Cmake
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 
-echo "Init script success!!"
+sudo whoami
+sudo pwd 
+sudo ls 
+
+sudo echo "Install deps success!" > deps.log
