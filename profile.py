@@ -16,6 +16,10 @@ node1.routable_control_ip = True
 node2 = request.RawPC("node2")
 node2.routable_control_ip = True
 
+# Request that a specific image be installed on this node
+node1.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"
+node2.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"
+
 # Create a link between them
 link1 = request.Link(members = [node1,node2])
 
