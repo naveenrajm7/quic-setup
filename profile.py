@@ -1,5 +1,5 @@
-"""The profile for experimenting with QUIC protocol
-The profile has two nodes: server and client 
+"""# The profile for experimenting with QUIC protocol  
+The profile has two nodes: *server* and *client*  
 The Execute script install required packages for ngtcp2 and nghttp3 libraries
 
 Instructions:
