@@ -1,3 +1,14 @@
+"""The profile for experimenting with QUIC protocol
+The profile has two nodes: server and client 
+The Execute script install required packages for ngtcp2 and nghttp3 libraries
+
+Instructions:
+After the experiment is instatiated, 
+Get ngtcp2 and nghttp3 libraries and start running example server from server node,
+and example client from client node.
+"""
+
+
 # Import the Portal object.
 import geni.portal as portal
 # Import the ProtoGENI library.
@@ -10,22 +21,22 @@ pc = portal.Context()
 request = pc.makeRequestRSpec()
  
 # Add a raw PC to the request.
-node1 = request.RawPC("node1")
-node1.routable_control_ip = True
+server = request.RawPC("server")
+server.routable_control_ip = True
 
-node2 = request.RawPC("node2")
-node2.routable_control_ip = True
+client = request.RawPC("client")
+client.routable_control_ip = True
 
 # Request that a specific image be installed on this node
-node1.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"
-node2.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"
+server.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"
+server.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU20-64-STD"
 
 # Create a link between them
-link1 = request.Link(members = [node1,node2])
+link1 = request.Link(members = [server,client])
 
 # Install and execute a script that is contained in the repository.
-node1.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
-node2.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
+server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
+client.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
