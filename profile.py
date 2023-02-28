@@ -51,8 +51,8 @@ client.addService(pg.Execute(shell="sh", command="/local/repository/scripts/inst
 
 # Take action based on the user parameter
 if params.do_compile: 
+    # compile only once since it is shared file path
     server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/compile-quic.sh " + params.src_path ))
-    client.addService(pg.Execute(shell="sh", command="/local/repository/scripts/compile-quic.sh " + params.src_path ))
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
