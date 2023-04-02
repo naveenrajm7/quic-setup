@@ -58,7 +58,7 @@ link = request.BridgedLink("link")
 link.addInterface(iface1)
 link.addInterface(iface2)
 
-link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD121-64-STD"
+link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD131-64-STD"
 
 # Give bridge some shaping parameters.
 # link.bandwidth = 10000
