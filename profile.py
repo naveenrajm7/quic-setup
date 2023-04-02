@@ -13,6 +13,8 @@ and example client from client node.
 import geni.portal as portal
 # Import the ProtoGENI library.
 import geni.rspec.pg as pg
+# Import the emulab extensions library. (BridgedLink)
+import geni.rspec.emulab as emulab
 
 # Create a portal context, needed to defined parameters
 pc = portal.Context()
