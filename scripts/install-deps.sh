@@ -3,6 +3,7 @@
 # Update packges
 sudo apt-get update
 
+## Dependecies to build ngtcp2, nghttp3
 # Install make,gcc
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y make gcc 
 
@@ -19,5 +20,9 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libev-dev
 
 # Get Cmake
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
+
+# Network stuff
+# install iperf3
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
 
 echo "Install deps success!"
