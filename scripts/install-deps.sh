@@ -21,7 +21,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libev-dev
 # Get Cmake
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 
-# Network stuff
+## Network stuff
 # install iperf3
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
 

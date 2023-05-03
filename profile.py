@@ -60,7 +60,7 @@ link.addInterface(iface2)
 
 link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD131-64-STD"
 
-# Give bridge some shaping parameters.
+# Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
 # link.latency   = 15
 
