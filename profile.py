@@ -48,8 +48,8 @@ iface2 = client.addInterface()
 iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
 
 # Request that a specific image be installed on this node
-server.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-BETA"
-client.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-BETA"
+server.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU14-32-STD"
+client.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU14-32-STD"
 
 # Create the bridged link between the two nodes.
 link = request.BridgedLink("link")
