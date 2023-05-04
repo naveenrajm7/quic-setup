@@ -36,13 +36,13 @@ pc.verifyParameters()
 # Add a raw PC to the request.
 server = request.RawPC("server")
 # https://docs.emulab.net/advanced-topics.html , Public IP Access
-server.routable_control_ip = True
+# server.routable_control_ip = True
 iface1 = server.addInterface()
 # Specify the IPv4 address
 iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
 
 client = request.RawPC("client")
-client.routable_control_ip = True
+# client.routable_control_ip = True
 iface2 = client.addInterface()
 # Specify the IPv4 address
 iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
