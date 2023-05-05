@@ -62,7 +62,7 @@ link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD131-6
 
 # Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
-# link.latency   = 36  # Implicit latency in live network link (IMC'17)
+link.latency   = 36  # Implicit latency in live network link (IMC'17)
 
 # Install and execute a script that is contained in the repository.
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
