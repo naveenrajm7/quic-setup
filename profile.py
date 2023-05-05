@@ -68,6 +68,10 @@ link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD131-6
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
 client.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
 
+# Install specific packages
+server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
+client.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-client.sh"))
+
 # Take action based on the user parameter
 if params.do_compile: 
     # compile only once since it is shared file path

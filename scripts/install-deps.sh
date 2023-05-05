@@ -25,4 +25,13 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 # install iperf3
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
 
+## Chromium install deps
+
+# Dependecies for running chromium ( After binary is available )
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y gperf
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-dev libgdk-pixbuf2.0-dev libgtk-3-dev libxss-dev
+
+# Chrome build scripts install deps
+sudo /proj/FEC-HTTP/long-quic/chromium/src/build/install-build-deps.sh
+
 echo "Install deps success!"
