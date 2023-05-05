@@ -35,3 +35,6 @@ sudo chmod 755  /proj/FEC-HTTP/
 
 # Enable and start apache
 sudo systemctl enable apache2 && sudo systemctl start apache2
+
+# Check status
+sudo systemctl status apache2
