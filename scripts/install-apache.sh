@@ -9,6 +9,9 @@ sudo a2enmod http2
 # Install ssl module
 sudo a2enmod ssl
 
+# Install Header module
+sudo a2enmod headers
+
 # Create TLS cert
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -config /proj/FEC-HTTP/long-quic/long-look-quic/tcp/leaf.cnf
 
@@ -24,11 +27,11 @@ sudo apt-get install libapache2-mod-wsgi-py3
 # Create apache virtual host file 
 sudo cp /proj/FEC-HTTP/long-quic/long-look-quic/tcp/flask.conf /etc/apache2/sites-available/flask.conf
 
-# Enable flask site
-sudo a2ensite flask.conf
-
 # Check config
 sudo apachectl -t
+
+# Enable flask site
+sudo a2ensite flask.conf
 
 # Give permission to home directory
 sudo chmod 755  /proj/FEC-HTTP/
