@@ -31,6 +31,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y gperf
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-dev libgdk-pixbuf2.0-dev libgtk-3-dev libxss-dev
 
+### THIS command is PROJECT specific ### 
 # Chrome build scripts install deps
 sudo /proj/FEC-HTTP/long-quic/chromium/src/build/install-build-deps.sh
 

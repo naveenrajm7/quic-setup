@@ -27,6 +27,7 @@ sudo apt-get install libapache2-mod-wsgi-py3
 
 # Make sure flask is installed in python virtual env
 
+### THIS command is PROJECT specific ### 
 # Create apache virtual host file 
 sudo cp /proj/FEC-HTTP/long-quic/long-look-quic/tcp/flask.conf /etc/apache2/sites-available/flask.conf
 
