@@ -35,4 +35,5 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-dev libgdk-pixbuf
 # Chrome build scripts install deps
 sudo /proj/FEC-HTTP/long-quic/chromium/src/build/install-build-deps.sh
 
+echo "$MYVAR"
 echo "Install deps success!"

@@ -64,9 +64,11 @@ link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD132-6
 # link.bandwidth = 10000
 # link.latency   = 36  # Implicit latency in live network link (IMC'17)
 
+# pass variable to script
+abc = "Relook"
 # Install and execute a script that is contained in the repository.
-server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
-client.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-deps.sh"))
+server.addService(pg.Execute(shell="sh", command="export MYVAR="+ abc +" && /local/repository/scripts/install-deps.sh"))
+client.addService(pg.Execute(shell="sh", command="export MYVAR="+ abc +" && /local/repository/scripts/install-deps.sh"))
 
 # Install specific packages
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
