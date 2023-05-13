@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ubuntu as lighttpd running, stop it to free up port for apache
+sudo service lighttpd stop
+
 # Install Apache
 sudo apt install apache2 -y
 
