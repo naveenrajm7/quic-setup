@@ -24,6 +24,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 ## Network stuff
 # install iperf3
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
+# Install trace-cmd for managing kernel tracing (tcp-probe)
+sudo apt install -y trace-cmd
 
 ## Chromium install deps
 
