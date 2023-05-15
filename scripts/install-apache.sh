@@ -44,7 +44,7 @@ sudo a2ensite flask.conf
 sudo chmod 755  /proj/FEC-HTTP/
 
 # Activate new configuration
-sudo systemctl reload apache
+sudo systemctl reload apache2
 
 # Enable and start apache
 sudo systemctl enable apache2 && sudo systemctl start apache2
