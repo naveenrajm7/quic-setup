@@ -54,6 +54,7 @@ ubuntu_14 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU14-64-STD"
 server.disk_image = ubuntu_22
 client.disk_image = ubuntu_22
 
+
 # Create the bridged link between the two nodes.
 link = request.BridgedLink("link")
 # link.bridge.hardware_type = NODETYPE
