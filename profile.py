@@ -51,8 +51,8 @@ ubuntu_22 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 ubuntu_14 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU14-64-STD"
 
 # Request that a specific image be installed on this node
-server.disk_image = ubuntu_22
-client.disk_image = ubuntu_22
+server.disk_image = ubuntu_14
+client.disk_image = ubuntu_14
 
 
 # Create the bridged link between the two nodes.
