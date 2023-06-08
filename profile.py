@@ -47,9 +47,12 @@ iface2 = client.addInterface()
 # Specify the IPv4 address
 iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
 
+ubuntu_22 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
+ubuntu_14 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU14-64-STD"
+
 # Request that a specific image be installed on this node
-server.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
-client.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
+server.disk_image = ubuntu_22
+client.disk_image = ubuntu_22
 
 # Create the bridged link between the two nodes.
 link = request.BridgedLink("link")
