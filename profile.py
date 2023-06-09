@@ -24,7 +24,9 @@ request = pc.makeRequestRSpec()
 
 # Describe the parameter(s) this profile script can accept.
 pc.defineParameter( "do_compile", "Do you want to compile your code", portal.ParameterType.BOOLEAN, False )
-pc.defineParameter( "src_path", "Specify the path to your source code", portal.ParameterType.STRING, "/proj/FEC-HTTP/" )
+pc.defineParameter( "proto_quic_path", "Specify the path to proto-quic source code", portal.ParameterType.STRING, "/proj/QUICFEC/" )
+pc.defineParameter( "quic_version", "Specify the quic version to setup (Q037, RFCv1, RFCv2)", portal.ParameterType.STRING, "RFCv1" )
+pc.defineParameter( "project", "Specify the emulab project name", portal.ParameterType.STRING, "QUICFEC" )
 
 # Retrieve the values the user specifies during instantiation.
 params = pc.bindParameters()
@@ -49,11 +51,12 @@ iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
 
 ubuntu_22 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 ubuntu_14 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU14-64-STD"
+fbsd_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD132-64-STD"
 
 # Request that a specific image be installed on this node
-server.disk_image = ubuntu_14
-client.disk_image = ubuntu_14
-
+ubuntu_image = ubuntu_14 if params.quic_version == 'Q037' else ubuntu_22
+server.disk_image = ubuntu_image
+client.disk_image = ubuntu_image
 
 # Create the bridged link between the two nodes.
 link = request.BridgedLink("link")
@@ -62,17 +65,17 @@ link = request.BridgedLink("link")
 link.addInterface(iface1)
 link.addInterface(iface2)
 
-link.bridge.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD132-64-STD"
+link.bridge.disk_image = fbsd_image
 
 # Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
 # link.latency   = 36  # Implicit latency in live network link (IMC'17)
 
 # pass variable to script
-abc = "Relook"
+project = params.project
 # Install and execute a script that is contained in the repository.
-server.addService(pg.Execute(shell="sh", command="export MYVAR="+ abc +" && /local/repository/scripts/install-deps.sh"))
-client.addService(pg.Execute(shell="sh", command="export MYVAR="+ abc +" && /local/repository/scripts/install-deps.sh"))
+server.addService(pg.Execute(shell="sh", command="export PROJECT="+ project +" && /local/repository/scripts/install-deps.sh"))
+client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project +" && /local/repository/scripts/install-deps.sh"))
 
 # Install specific packages
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))

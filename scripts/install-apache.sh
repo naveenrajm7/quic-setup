@@ -19,7 +19,7 @@ sudo a2enmod headers
 sudo a2dismod deflate -f
 
 # Create TLS cert
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -config /proj/FEC-HTTP/long-quic/long-look-quic/tcp/leaf.cnf
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -config "/local/repository/scripts/leaf.cnf"
 
 # Install wgsi packages
 sudo apt-get install libapache2-mod-wsgi-py3
@@ -32,7 +32,7 @@ sudo apt-get install libapache2-mod-wsgi-py3
 
 ### THIS command is PROJECT specific ### 
 # Create apache virtual host file 
-sudo cp /proj/FEC-HTTP/long-quic/long-look-quic/tcp/flask.conf /etc/apache2/sites-available/flask.conf
+sudo cp /local/repository/scripts/flask.conf /etc/apache2/sites-available/flask.conf
 
 # Check config
 sudo apachectl -t
@@ -41,7 +41,7 @@ sudo apachectl -t
 sudo a2ensite flask.conf
 
 # Give permission to home directory
-sudo chmod 755  /proj/FEC-HTTP/
+sudo chmod 755  "/proj/$PROJECT/"
 
 # Activate new configuration
 sudo systemctl reload apache2
