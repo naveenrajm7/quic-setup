@@ -23,7 +23,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 
 ## Network stuff
 # install iperf3
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
+if [ $QUIC_VERSION = "Q037" ]
+then
+    echo "Iperf3 is not available"
+    pwd
+else
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
+fi
+
 # Install trace-cmd for managing kernel tracing (tcp-probe)
 sudo apt install -y trace-cmd
 

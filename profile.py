@@ -74,8 +74,8 @@ link.bridge.disk_image = fbsd_image
 # pass variable to script
 project = params.project
 # Install and execute a script that is contained in the repository.
-server.addService(pg.Execute(shell="sh", command="export PROJECT="+ project +" && /local/repository/scripts/install-deps.sh"))
-client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project +" && /local/repository/scripts/install-deps.sh"))
+server.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
+client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
 
 # Install specific packages
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
