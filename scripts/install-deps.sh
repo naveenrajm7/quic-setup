@@ -7,7 +7,7 @@ sudo apt-get update
 # Install make,gcc
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y make gcc 
 
-# Install requirements for tcp2
+# Install requirements for ngtcp2
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y pkg-config autoconf autotools-dev libtool 
 
 # Install dependencies To build sources under the examples directory
@@ -23,7 +23,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 
 ## Network stuff
 # install iperf3
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
+if [ $QUIC_VERSION = "Q037" ]
+then
+    echo "Iperf3 is not available"
+    pwd
+else
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
+fi
+
 # Install trace-cmd for managing kernel tracing (tcp-probe)
 sudo apt install -y trace-cmd
 
@@ -35,7 +42,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-dev libgdk-pixbuf
 
 ### THIS command is PROJECT specific ### 
 # Chrome build scripts install deps
-sudo /proj/FEC-HTTP/long-quic/chromium/src/build/install-build-deps.sh
+# sudo "/proj/$PROJECT/long-quic/chromium/src/build/install-build-deps.sh"
 
-echo "$MYVAR"
+sudo echo "$PROJECT"
 echo "Install deps success!"
