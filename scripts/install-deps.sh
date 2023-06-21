@@ -23,13 +23,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y cmake
 
 ## Network stuff
 # install iperf3
-if [ $QUIC_VERSION = "Q037" ]
-then
-    echo "Iperf3 is not available"
-    pwd
-else
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
-fi
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
 
 # Install trace-cmd for managing kernel tracing (tcp-probe)
 sudo apt install -y trace-cmd
@@ -39,6 +33,9 @@ sudo apt install -y trace-cmd
 # Dependecies for running chromium ( After binary is available )
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y gperf
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-dev libgdk-pixbuf2.0-dev libgtk-3-dev libxss-dev
+
+# https://support.circleci.com/hc/en-us/articles/360004086734-error-while-loading-shared-libraries-libgconf-2-so-4-cannot-open-shared-object-file-No-such-file-or-directory?utm_source=google&utm_medium=sem&utm_campaign=sem-google-dg--uscan-en-dsa-tROAS-auth-brand&utm_term=g_-_c__dsa_&utm_content=&gclid=CjwKCAjwvpCkBhB4EiwAujULMt06j8zJp2YWP6idiNv09G_n-
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libgconf-2-4
 
 ### THIS command is PROJECT specific ### 
 # Chrome build scripts install deps
