@@ -43,8 +43,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libgconf-2-4
 
 # Install Bazel ( for building quiche)
 sudo apt install apt-transport-https curl gnupg -y
-sudo curl -fsSL https://bazel.build/bazel-release.pub.gpg | sudo gpg --dearmor >bazel-archive-keyring.gpg
-sudo mv bazel-archive-keyring.gpg /usr/share/keyrings
+sudo curl -fsSL https://bazel.build/bazel-release.pub.gpg | sudo gpg --dearmor >/tmp/bazel-archive-keyring.gpg
+sudo mv /tmp/bazel-archive-keyring.gpg /usr/share/keyrings
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
 sudo apt update && sudo apt install bazel -y
 
