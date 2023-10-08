@@ -48,5 +48,11 @@ sudo mv /tmp/bazel-archive-keyring.gpg /usr/share/keyrings
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/bazel-archive-keyring.gpg] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
 sudo apt update && sudo apt install bazel -y
 
+
+## Certutil for adding certs to OS chain
+# Install libnss3-tools
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-tools
+
+
 sudo echo "$PROJECT"
 echo "Install deps success!"
