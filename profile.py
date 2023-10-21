@@ -37,6 +37,8 @@ pc.verifyParameters()
 
 # Add a raw PC to the request.
 server = request.RawPC("server")
+# 64GB ECC Memory, Two Intel E5-2630v3 8-Core CPUs at 2.4 GHz (Haswell)
+server.hardware_type = 'd430'
 # https://docs.emulab.net/advanced-topics.html , Public IP Access
 # server.routable_control_ip = True
 iface1 = server.addInterface()
@@ -44,6 +46,8 @@ iface1 = server.addInterface()
 iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
 
 client = request.RawPC("client")
+# 12 GB memory, 2.4 GHz quad-core
+client.hardware_type = 'd710'
 # client.routable_control_ip = True
 iface2 = client.addInterface()
 # Specify the IPv4 address
