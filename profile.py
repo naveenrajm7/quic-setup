@@ -24,9 +24,9 @@ request = pc.makeRequestRSpec()
 
 # Describe the parameter(s) this profile script can accept.
 pc.defineParameter( "do_compile", "Do you want to compile your code", portal.ParameterType.BOOLEAN, False )
-pc.defineParameter( "proto_quic_path", "Specify the path to proto-quic source code", portal.ParameterType.STRING, "/proj/QUICFEC/" )
+pc.defineParameter( "proto_quic_path", "Specify the path to proto-quic source code", portal.ParameterType.STRING, "/proj/FEC-HTTP/" )
 pc.defineParameter( "quic_version", "Specify the quic version to setup (Q037, RFCv1, RFCv2)", portal.ParameterType.STRING, "RFCv1" )
-pc.defineParameter( "project", "Specify the emulab project name", portal.ParameterType.STRING, "QUICFEC" )
+pc.defineParameter( "project", "Specify the emulab project name", portal.ParameterType.STRING, "FEC-HTTP" )
 
 # Retrieve the values the user specifies during instantiation.
 params = pc.bindParameters()
