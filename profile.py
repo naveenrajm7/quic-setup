@@ -1,5 +1,5 @@
-"""# The profile for experimenting with QUIC protocol  
-The profile has two nodes: **server** and **client** 
+"""# The profile for experimenting with QUIC proxy  
+The profile has three nodes: **server** , **proxy** and **client** 
 The Execute script install required packages for ngtcp2 and nghttp3 libraries
 
 Instructions:
@@ -35,19 +35,21 @@ params = pc.bindParameters()
 # Add custom conditions here
 pc.verifyParameters()
 
+## Node Server
 # Add a raw PC to the request.
 server = request.RawPC("server")
 # d430 -> 64GB ECC Memory, Two Intel E5-2630v3 8-Core CPUs at 2.4 GHz (Haswell)
-server.hardware_type = 'd430'
+server.hardware_type = 'pc3000'
 # https://docs.emulab.net/advanced-topics.html , Public IP Access
 # server.routable_control_ip = True
 iface1 = server.addInterface()
 # Specify the IPv4 address
 iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
 
+## Node Client
 client = request.RawPC("client")
 # d710 -> 12 GB memory, 2.4 GHz quad-core
-client.hardware_type = 'd710'
+client.hardware_type = 'pc3000'
 # client.routable_control_ip = True
 iface2 = client.addInterface()
 # Specify the IPv4 address
@@ -62,14 +64,36 @@ ubuntu_image = ubuntu_18 if params.quic_version != 'RFCv1' else ubuntu_22
 server.disk_image = ubuntu_image
 client.disk_image = ubuntu_image
 
-# Create the bridged link between the two nodes.
-link = request.BridgedLink("link")
-# link.bridge.hardware_type = NODETYPE
-# Add the interfaces we created above.
-link.addInterface(iface1)
-link.addInterface(iface2)
 
-link.bridge.disk_image = fbsd_image
+## Node Proxy
+# Add a raw PC to the request.
+proxy = request.RawPC("proxy")
+proxy.hardware_type = 'pc3000'
+iface3 = proxy.addInterface()
+iface4 = proxy.addInterface()
+proxy.disk_image = ubuntu_image
+
+## Node D1
+# Create the bridged link between the two nodes.
+link1 = request.BridgedLink("link1")
+link1.bridge.hardware_type = 'pc3000'
+# Add the interfaces we created above.
+link1.addInterface(iface2)
+link1.addInterface(iface3)
+
+link1.bridge.disk_image = fbsd_image
+
+
+## Node D2
+# Create the bridged link between the two nodes.
+link2 = request.BridgedLink("link2")
+link2.bridge.hardware_type = 'pc3000'
+# Add the interfaces we created above.
+link2.addInterface(iface4)
+link2.addInterface(iface1)
+
+link2.bridge.disk_image = fbsd_image
+
 
 # Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
@@ -80,6 +104,8 @@ project = params.project
 # Install and execute a script that is contained in the repository.
 server.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
 client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
+proxy.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
+
 
 # Install specific packages
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
