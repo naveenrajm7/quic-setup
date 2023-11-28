@@ -64,7 +64,7 @@ client.disk_image = ubuntu_image
 
 # Create the bridged link between the two nodes.
 link = request.BridgedLink("link")
-# link.bridge.hardware_type = NODETYPE
+link.bridge.hardware_type = 'd710'
 # Add the interfaces we created above.
 link.addInterface(iface1)
 link.addInterface(iface2)
