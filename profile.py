@@ -64,6 +64,12 @@ ubuntu_image = ubuntu_18 if params.quic_version != 'RFCv1' else ubuntu_22
 server.disk_image = ubuntu_image
 client.disk_image = ubuntu_image
 
+# Create the bridged link between the two nodes.
+link = request.BridgedLink("link")
+link.bridge.hardware_type = 'd710'
+# Add the interfaces we created above.
+link.addInterface(iface1)
+link.addInterface(iface2)
 
 ## Node Proxy
 # Add a raw PC to the request.
