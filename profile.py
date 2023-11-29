@@ -38,7 +38,7 @@ pc.verifyParameters()
 # Add a raw PC to the request.
 server = request.RawPC("server")
 # d430 -> 64GB ECC Memory, Two Intel E5-2630v3 8-Core CPUs at 2.4 GHz (Haswell)
-server.hardware_type = 'd710'
+server.hardware_type = 'd430'
 # https://docs.emulab.net/advanced-topics.html , Public IP Access
 # server.routable_control_ip = True
 iface1 = server.addInterface()
