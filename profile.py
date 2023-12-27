@@ -35,8 +35,8 @@ params = pc.bindParameters()
 # Add custom conditions here
 valid_versions = ["Q037", "RFCv1"]
 if params.quic_version not in valid_versions:
-    error = portal.ParameterError("Invalid quic_version. It should be either 'Q037' or 'RFCv1'.", ['quic_version'])
-    pc.reportError(error)
+    error = pc.ParameterError("Invalid quic_version. It should be either 'Q037' or 'RFCv1'.", ['quic_version'])
+    pc.reportError(error, immediate=False)
 
 # this function will spit out some nice JSON-formatted exception info on stderr
 pc.verifyParameters()
