@@ -37,10 +37,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-dev libgdk-pixbuf
 # https://support.circleci.com/hc/en-us/articles/360004086734-error-while-loading-shared-libraries-libgconf-2-so-4-cannot-open-shared-object-file-No-such-file-or-directory?utm_source=google&utm_medium=sem&utm_campaign=sem-google-dg--uscan-en-dsa-tROAS-auth-brand&utm_term=g_-_c__dsa_&utm_content=&gclid=CjwKCAjwvpCkBhB4EiwAujULMt06j8zJp2YWP6idiNv09G_n-
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libgconf-2-4
 
-### THIS command is PROJECT specific ### 
-# Chrome build scripts install deps
-# sudo "/proj/$PROJECT/long-quic/chromium/src/build/install-build-deps.sh"
-
 # Install Bazel ( for building quiche)
 sudo apt install apt-transport-https curl gnupg -y
 sudo curl -fsSL https://bazel.build/bazel-release.pub.gpg | sudo gpg --dearmor >/tmp/bazel-archive-keyring.gpg
@@ -53,6 +49,9 @@ sudo apt update && sudo apt install bazel -y
 # Install libnss3-tools
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libnss3-tools
 
+
+# Install screen , to schedule experiment runs
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y screen
 
 sudo echo "$PROJECT"
 echo "Install deps success!"
