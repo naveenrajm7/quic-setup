@@ -90,6 +90,7 @@ client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " 
 # Install specific packages
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
 client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && local/repository/scripts/install-client.sh"))
+link.bridge.addService(pg.Execute(shell="sh", command="/local/repository/scripts/bridge-tunning.sh"))
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
