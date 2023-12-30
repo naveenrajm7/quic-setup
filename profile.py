@@ -1,6 +1,6 @@
 """# The profile for experimenting with QUIC protocol  
-The profile has two nodes: **server** and **client** 
-The Execute script install required packages for ngtcp2 and nghttp3 libraries
+The profile has three nodes: **server**, **client** and **link**.
+The Execute script install required packages for running experiments.
 
 Instructions:
 After the experiment is instatiated, 
