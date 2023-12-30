@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 """# The profile for experimenting with QUIC proxy  
 The profile has three nodes: **server** , **proxy** and **client** 
 The Execute script install required packages for ngtcp2 and nghttp3 libraries
+=======
+"""# The profile for experimenting with QUIC protocol  
+The profile has three nodes: **server**, **client** and **link**.
+The Execute script install required packages for running experiments.
+>>>>>>> 635fa64 (Update description)
 
 Instructions:
 After the experiment is instatiated, 
