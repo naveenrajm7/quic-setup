@@ -41,21 +41,19 @@ if params.quic_version not in valid_versions:
 # this function will spit out some nice JSON-formatted exception info on stderr
 pc.verifyParameters()
 
-## Node Server
 # Add a raw PC to the request.
 server = request.RawPC("server")
 # d430 -> 64GB ECC Memory, Two Intel E5-2630v3 8-Core CPUs at 2.4 GHz (Haswell)
-server.hardware_type = 'pc3000'
+server.hardware_type = 'd430'
 # https://docs.emulab.net/advanced-topics.html , Public IP Access
 # server.routable_control_ip = True
 iface1 = server.addInterface()
 # Specify the IPv4 address
 iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
 
-## Node Client
 client = request.RawPC("client")
 # d710 -> 12 GB memory, 2.4 GHz quad-core
-client.hardware_type = 'pc3000'
+client.hardware_type = 'd710'
 # client.routable_control_ip = True
 iface2 = client.addInterface()
 # Specify the IPv4 address
@@ -70,42 +68,40 @@ ubuntu_image = ubuntu_22 if params.quic_version == 'RFCv1' else ubuntu_18
 server.disk_image = ubuntu_image
 client.disk_image = ubuntu_image
 
-# Create the bridged link between the two nodes.
-link = request.BridgedLink("link")
-link.bridge.hardware_type = 'd710'
-# Add the interfaces we created above.
-link.addInterface(iface1)
-link.addInterface(iface2)
+# # Create the bridged link between the two nodes.
+# link = request.BridgedLink("link")
+# link.bridge.hardware_type = 'd710'
+# # Add the interfaces we created above.
+# link.addInterface(iface1)
+# link.addInterface(iface2)
 
 ## Node Proxy
-# Add a raw PC to the request.
 proxy = request.RawPC("proxy")
-proxy.hardware_type = 'pc3000'
-iface3 = proxy.addInterface()
-iface4 = proxy.addInterface()
+proxy.hardware_type = 'd710'
 proxy.disk_image = ubuntu_image
+# Add two interfaces
+iface3 = proxy.addInterface(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
+iface4 = proxy.addInterface(pg.IPv4Address("192.168.1.4", "255.255.255.0"))
 
-## Node D1
+## Link L1
 # Create the bridged link between the two nodes.
 link1 = request.BridgedLink("link1")
-link1.bridge.hardware_type = 'pc3000'
-# Add the interfaces we created above.
-link1.addInterface(iface2)
-link1.addInterface(iface3)
-
+link1.bridge.hardware_type = 'd710'
 link1.bridge.disk_image = fbsd_image
 
+# Add the interfaces we created above. Client and Proxy
+link1.addInterface(iface2)
+link1.addInterface(iface4)
 
-## Node D2
+## Link L2
 # Create the bridged link between the two nodes.
 link2 = request.BridgedLink("link2")
-link2.bridge.hardware_type = 'pc3000'
-# Add the interfaces we created above.
-link2.addInterface(iface4)
-link2.addInterface(iface1)
-
+link2.bridge.hardware_type = 'd710'
 link2.bridge.disk_image = fbsd_image
 
+# Add the interfaces we created above. Proxy and Server
+link2.addInterface(iface3)
+link2.addInterface(iface1)
 
 # Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
@@ -122,7 +118,7 @@ proxy.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " Q
 # Install specific packages
 server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
 client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-client.sh"))
-link.bridge.addService(pg.Execute(shell="sh", command="/local/repository/scripts/bridge-tunning.sh"))
+link1.bridge.addService(pg.Execute(shell="sh", command="/local/repository/scripts/bridge-tunning.sh"))
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
