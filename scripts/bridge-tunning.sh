@@ -1,5 +1,5 @@
-#!/bin/bash
-
+#!/usr/local/bin/bash
+# FreeBSD bash path
 # Increase dummynet pipe buffer limit to accomodate for large BDP
 sudo sysctl net.inet.ip.dummynet.pipe_byte_limit=10000000
 
