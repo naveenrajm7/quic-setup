@@ -80,8 +80,11 @@ proxy = request.RawPC("proxy")
 proxy.hardware_type = 'd710'
 proxy.disk_image = ubuntu_image
 # Add two interfaces
-iface3 = proxy.addInterface(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
-iface4 = proxy.addInterface(pg.IPv4Address("192.168.1.4", "255.255.255.0"))
+iface3 = proxy.addInterface()
+iface4 = proxy.addInterface()
+# Specify the IPv4 address
+iface3.addAddress(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
+iface4.addAddress(pg.IPv4Address("192.168.1.4", "255.255.255.0"))
 
 ## Link L1
 # Create the bridged link between the two nodes.
