@@ -82,27 +82,30 @@ tcp_server.disk_image = ubuntu_image
 client.disk_image = ubuntu_image
 
 # Create the bridged link between the two nodes.
-link_bridge = request.BridgedLink("link_bridge", "if0", "if1")
+link_bridge = request.BridgedLink("link_bridge")
 link_bridge.bridge.hardware_type = 'd710'
 
-iface4 = link_bridge.iface1
-iface5 = link_bridge.iface0
+# iface_left = link_bridge.addInterface()
+# iface_right = link_bridge.addInterface()
 
-# Link link_left
-link_left = request.Link('link_left')
-link_left.Site('undefined')
-link_left.addInterface(iface2)
-link_left.addInterface(iface4)
+# # Link link_left
+# link_left = request.Link('link_left')
+# link_left.Site('undefined')
+# link_left.addInterface(iface2)
+# link_left.addInterface(iface_left)
 
-# Link link_right
-link_right = request.Link('link_right')
-link_right.Site('undefined')
-link_right.addInterface(iface5)
-link_right.addInterface(iface1)
-link_right.addInterface(iface3)
+# # Link link_right
+# link_right = request.Link('link_right')
+# link_right.Site('undefined')
+# link_right.addInterface(iface_right)
+# link_right.addInterface(iface1)
+# link_right.addInterface(iface3)
 
+link_bridge.addInterface(iface2)
+link_bridge.addInterface(iface1)
+link_bridge.addInterface(iface3)
 
-link.bridge.disk_image = fbsd_image
+link_bridge.bridge.disk_image = fbsd_image
 
 # Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
