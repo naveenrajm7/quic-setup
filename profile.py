@@ -49,7 +49,7 @@ server.hardware_type = 'd430'
 # server.routable_control_ip = True
 iface1 = server.addInterface()
 # Specify the IPv4 address
-iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
+# iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
 
 client = request.RawPC("client")
 # d710 -> 12 GB memory, 2.4 GHz quad-core
@@ -57,7 +57,7 @@ client.hardware_type = 'd710'
 # client.routable_control_ip = True
 iface2 = client.addInterface()
 # Specify the IPv4 address
-iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
+# iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
 
 ubuntu_22 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 ubuntu_18 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU18-64-STD"
@@ -83,8 +83,8 @@ proxy.disk_image = ubuntu_image
 iface3 = proxy.addInterface()
 iface4 = proxy.addInterface()
 # Specify the IPv4 address
-iface3.addAddress(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
-iface4.addAddress(pg.IPv4Address("192.168.1.4", "255.255.255.0"))
+# iface3.addAddress(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
+# iface4.addAddress(pg.IPv4Address("192.168.1.4", "255.255.255.0"))
 
 ## Link L1
 # Create the bridged link between the two nodes.
