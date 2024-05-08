@@ -43,7 +43,7 @@ quic_server.hardware_type = 'd430'
 # server.routable_control_ip = True
 iface1 = quic_server.addInterface()
 # Specify the IPv4 address
-iface1.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
+# iface1.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
 
 # Add a raw PC to the request.
 tcp_server = request.RawPC("tcp_server")
@@ -53,7 +53,7 @@ tcp_server.hardware_type = 'd430'
 # server.routable_control_ip = True
 iface2 = tcp_server.addInterface()
 # Specify the IPv4 address
-iface2.addAddress(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
+# iface2.addAddress(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
 
 
 
@@ -63,7 +63,7 @@ quic_client.hardware_type = 'd710'
 # client.routable_control_ip = True
 iface3 = quic_client.addInterface()
 # Specify the IPv4 address
-iface3.addAddress(pg.IPv4Address("192.168.2.2", "255.255.255.0"))
+# iface3.addAddress(pg.IPv4Address("192.168.2.2", "255.255.255.0"))
 
 tcp_client = request.RawPC("tcp_client")
 # d710 -> 12 GB memory, 2.4 GHz quad-core
@@ -71,7 +71,7 @@ tcp_client.hardware_type = 'd710'
 # client.routable_control_ip = True
 iface4 = tcp_client.addInterface()
 # Specify the IPv4 address
-iface4.addAddress(pg.IPv4Address("192.168.2.3", "255.255.255.0"))
+# iface4.addAddress(pg.IPv4Address("192.168.2.3", "255.255.255.0"))
 
 ubuntu_22 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 ubuntu_18 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU18-64-STD"
