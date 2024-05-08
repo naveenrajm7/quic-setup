@@ -1,11 +1,5 @@
-"""# The profile for experimenting with QUIC protocol  
-The profile has three nodes: **server**, **client** and **link**.
-The Execute script install required packages for running experiments.
+"""# The dumbbell topology for experimenting with QUIC fairness 
 
-Instructions:
-After the experiment is instatiated, 
-Start running example server from server node,
-and example client from client node.
 """
 
 
@@ -49,7 +43,7 @@ quic_server.hardware_type = 'd430'
 # server.routable_control_ip = True
 iface1 = quic_server.addInterface()
 # Specify the IPv4 address
-# iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
+iface1.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
 
 # Add a raw PC to the request.
 tcp_server = request.RawPC("tcp_server")
@@ -57,19 +51,27 @@ tcp_server = request.RawPC("tcp_server")
 tcp_server.hardware_type = 'd430'
 # https://docs.emulab.net/advanced-topics.html , Public IP Access
 # server.routable_control_ip = True
-iface3 = tcp_server.addInterface()
+iface2 = tcp_server.addInterface()
 # Specify the IPv4 address
-# iface1.addAddress(pg.IPv4Address("192.168.1.1", "255.255.255.0"))
+iface2.addAddress(pg.IPv4Address("192.168.1.3", "255.255.255.0"))
 
 
 
-client = request.RawPC("client")
+quic_client = request.RawPC("quic_client")
 # d710 -> 12 GB memory, 2.4 GHz quad-core
-client.hardware_type = 'd710'
+quic_client.hardware_type = 'd710'
 # client.routable_control_ip = True
-iface2 = client.addInterface()
+iface3 = quic_client.addInterface()
 # Specify the IPv4 address
-# iface2.addAddress(pg.IPv4Address("192.168.1.2", "255.255.255.0"))
+iface3.addAddress(pg.IPv4Address("192.168.2.2", "255.255.255.0"))
+
+tcp_client = request.RawPC("tcp_client")
+# d710 -> 12 GB memory, 2.4 GHz quad-core
+tcp_client.hardware_type = 'd710'
+# client.routable_control_ip = True
+iface4 = tcp_client.addInterface()
+# Specify the IPv4 address
+iface4.addAddress(pg.IPv4Address("192.168.2.3", "255.255.255.0"))
 
 ubuntu_22 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD"
 ubuntu_18 = "urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU18-64-STD"
@@ -79,31 +81,18 @@ fbsd_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:FBSD132-64-STD"
 ubuntu_image = ubuntu_22 if params.quic_version == 'RFCv1' else ubuntu_18
 quic_server.disk_image = ubuntu_image
 tcp_server.disk_image = ubuntu_image
-client.disk_image = ubuntu_image
+quic_client.disk_image = ubuntu_image
+tcp_client.disk_image = ubuntu_image
 
 # Create the bridged link between the two nodes.
 link_bridge = request.BridgedLink("link_bridge")
 link_bridge.bridge.hardware_type = 'd710'
 
-# iface_left = link_bridge.addInterface()
-# iface_right = link_bridge.addInterface()
-
-# # Link link_left
-# link_left = request.Link('link_left')
-# link_left.Site('undefined')
-# link_left.addInterface(iface2)
-# link_left.addInterface(iface_left)
-
-# # Link link_right
-# link_right = request.Link('link_right')
-# link_right.Site('undefined')
-# link_right.addInterface(iface_right)
-# link_right.addInterface(iface1)
-# link_right.addInterface(iface3)
-
-link_bridge.addInterface(iface2)
+# Add interfaces to the link_bridge
 link_bridge.addInterface(iface1)
+link_bridge.addInterface(iface2)
 link_bridge.addInterface(iface3)
+link_bridge.addInterface(iface4)
 
 link_bridge.bridge.disk_image = fbsd_image
 
@@ -116,11 +105,14 @@ project = params.project
 # Install and execute a script that is contained in the repository.
 tcp_server.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
 quic_server.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
-client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
+tcp_client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
+quic_client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project + " QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-deps.sh"))
+
 
 # Install specific packages
 tcp_server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
-client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-client.sh"))
+tcp_client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-client.sh"))
+quic_client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-client.sh"))
 link_bridge.bridge.addService(pg.Execute(shell="sh", command="/local/repository/scripts/bridge-tunning.sh"))
 
 # Print the RSpec to the enclosing page.
