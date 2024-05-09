@@ -85,16 +85,34 @@ quic_client.disk_image = ubuntu_image
 tcp_client.disk_image = ubuntu_image
 
 # Create the bridged link between the two nodes.
-link_bridge = request.BridgedLink("link_bridge")
-link_bridge.bridge.hardware_type = 'd710'
+link_bridge = request.Bridge('link_bridge_bridge', 'if1', 'if0')
+link_bridge.hardware_type = 'd710'
+link_bridge.disk_image = fbsd_image
 
-# Add interfaces to the link_bridge
-link_bridge.addInterface(iface1)
-link_bridge.addInterface(iface2)
-link_bridge.addInterface(iface3)
-link_bridge.addInterface(iface4)
+link_bridge.pipe1.bandwidth = 0
+link_bridge.pipe1.latency = 0
+link_bridge.pipe1.lossrate = 0.0
+link_bridge.pipe0.bandwidth = 0
+link_bridge.pipe0.latency = 0
+link_bridge.pipe0.lossrate = 0.0
 
-link_bridge.bridge.disk_image = fbsd_image
+iface5 = link_bridge.iface0
+iface6 = link_bridge.iface1
+
+# Link link_bridge_left
+link_bridge_left = request.Link('link_bridge_left')
+link_bridge_left.Site('undefined')
+link_bridge_left.addInterface(iface6)
+link_bridge_left.addInterface(iface1)
+link_bridge_left.addInterface(iface2)
+
+# Link link_bridge_right
+link_bridge_right = request.Link('link_bridge_right')
+link_bridge_right.Site('undefined')
+link_bridge_right.addInterface(iface5)
+link_bridge_right.addInterface(iface3)
+link_bridge_right.addInterface(iface4)
+
 
 # Give bridge some shaping parameters. (Implict parameter found in real link)
 # link.bandwidth = 10000
@@ -113,7 +131,7 @@ quic_client.addService(pg.Execute(shell="sh", command="export PROJECT="+ project
 tcp_server.addService(pg.Execute(shell="sh", command="/local/repository/scripts/install-apache.sh"))
 tcp_client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-client.sh"))
 quic_client.addService(pg.Execute(shell="sh", command="export QUIC_VERSION="+ params.quic_version +" && /local/repository/scripts/install-client.sh"))
-link_bridge.bridge.addService(pg.Execute(shell="sh", command="/local/repository/scripts/bridge-tunning.sh"))
+link_bridge.addService(pg.Execute(shell="sh", command="/local/repository/scripts/bridge-tunning.sh"))
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
